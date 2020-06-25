@@ -4,3 +4,4 @@ Flask-Cors==3.0.8
 Flask-RESTful==0.3.8
 requests==2.22.0
 gunicorn==20.0.4
+rank-bm25==0.2
