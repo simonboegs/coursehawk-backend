@@ -39,16 +39,27 @@ for i in range(len(labels)):
             prereqs = ''
         else:
             prereqs = coursePrereqs[j].text#.replace('.','').split('; ')
+        courseNum = courseNums[j].text
+        for c in courseNum:
+            if(c.isdigit()):
+                if(int(c) >= 2):
+                    courseDivision = 'other'
+                elif(int(c) == 1):
+                    courseDivision = 'upper'
+                elif(int(c) == 0):
+                    courseDivision = 'lower'
+                break
         course = {'subjectFull': subjectFull,
                   'subjectCode': subjectCode,
-                  'number': courseNums[j].text,
+                  'number': courseNum,
                   'title': courseTitles[j].text,
                   'credits': courseCredits[j].text[1],
                   'prereqs': prereqs,
-                  'desc': courseDescs[j].text}
+                  'desc': courseDescs[j].text,
+                  'division': courseDivision}
         courses.append(course)
         print(course['subjectFull'],course['subjectCode'])
 #print(courses)
 data = {'courses': courses}
-with open('courses_ucdavis.json','w') as writeFile:
+with open('courses_uc-davis.json','w') as writeFile:
     json.dump(data, writeFile)
