@@ -50,6 +50,20 @@ for li in lis:
                     break
             if(len(courseDesc) > 0 and  courseDesc[0] == ' '):
                 courseDesc = courseDesc[1:]
+            n = ''
+            for c in courseNumber:
+                if(c.isdigit()):
+                    n += c
+            if(len(n) == 0):
+                division = 'other'
+            else:
+                n = int(n)
+                if(n < 100):
+                    division = 'lower'
+                elif(n < 200):
+                    division = 'upper'
+                else:
+                    division = 'other'
             course = {
                 'subjectFull': subjectFull,
                 'subjectCode': subjectCode,
@@ -57,7 +71,8 @@ for li in lis:
                 'title': courseTitle,
                 'units': courseUnits,
                 'prereqs': coursePrereqs,
-                'desc': courseDesc
+                'desc': courseDesc,
+                'division': division
                 }
             courses.append(course)
             print(course['subjectFull'],course['subjectCode'])

@@ -35,18 +35,31 @@ for i in range(len(labels)):
             prereq = ''
         coursePrereqs.append(prereq)
     for j in range(len(courseTitles)):
+        courseNum = courseNumber[j].text.split('\xa0')[-1]
+        n = ''
+        for c in courseNum:
+            if(c.isdigit()):
+                n += c
+        n = int(n)
+        if(n < 100):
+            division = 'lower'
+        elif(n < 200):
+            division = 'upper'
+        else:
+            division = 'other'
         course = {
             'subjectFull': subjectFull,
             'subjectCode': subjectCode,
-            'number': courseNumber[j].text.split('\xa0')[-1],
+            'number': courseNum,
             'title': courseTitles[j].text,
             'units': courseUnits[j].text.replace(' Units',''),
             'prereqs': coursePrereqs[j],
-            'desc': courseDescs[j].text.split('\n')[-1]
+            'desc': courseDescs[j].text.split('\n')[-1],
+            'division': division
             }
         courses.append(course)
         print(course['subjectFull'],course['subjectCode'])
         
 data = {'courses': courses}
-with open('courses_ucberkeley.json','w') as writeFile:
+with open('courses_uc-berkeley.json','w') as writeFile:
     json.dump(data, writeFile)

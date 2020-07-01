@@ -63,6 +63,17 @@ for linkNum in linkNumbers:#[22:24]:
             courseDesc = text[38:]
         idx2 = courseDesc.find('Course Details')
         courseDesc = courseDesc[:idx2]
+        n = ''
+        for c in courseNumber:
+            if(c.isdigit()):
+                n += c
+        n = int(n)
+        if(n < 100):
+            division = 'lower'
+        elif(n < 200):
+            division = 'upper'
+        else:
+            division = 'other'
         course = {
             'subjectFull': subjectFull,
             'subjectCode': subjectCode,
@@ -70,7 +81,8 @@ for linkNum in linkNumbers:#[22:24]:
             'title': courseTitle,
             'units': courseUnits,
             'prereqs': coursePrereqs,
-            'desc': courseDesc
+            'desc': courseDesc,
+            'division': division
             }
         for key in course:
             course[key] = course[key].replace('\u2013','-')

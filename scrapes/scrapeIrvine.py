@@ -42,6 +42,17 @@ for i in range(len(links)):
             coursePrereqs = pList[1].text.replace('Prerequisite: ', '').strip().replace('\xa0',' ')
         else:
             coursePrereqs = ''
+        n = ''
+        for c in courseNum:
+            if(c.isdigit()):
+                n += c
+        n = int(n)
+        if(n < 100):
+            division = 'lower'
+        elif(n < 200):
+            division = 'upper'
+        else:
+            division = 'other'
         course = {
             'subjectFull': subjectFull,
             'subjectCode': subjectCode,
@@ -49,10 +60,11 @@ for i in range(len(links)):
             'title': courseTitle,
             'units': courseUnits,
             'prereqs': coursePrereqs,
-            'desc': courseDesc
+            'desc': courseDesc,
+            'division': division
             }
         courses.append(course)
-        print(courses)
+        print(courseCode,courseNum)
 
 data = {'courses' : courses}
 with open('courses_ucirvine.json','w') as writeFile:
